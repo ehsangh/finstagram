@@ -1,18 +1,5 @@
-<header>
-  <h1>Finstagram</h1>
-  <div class="login-info">
-    <% if current_user %>
-      <%= current_user.username %>
-      <a href="/logout"> | Logout</a>
-    <% else %>
-      <a href="/login">Login</a>
-      <a href="/signup"> | Signup</a>
-    <% end %>
-  </div>
-</header>
+<h2>Existing User Login</h2>
 
-<br/>
-<main role="main">
 <%= @error_message if @error_message %>
 
 <form action="/login" method="POST">
@@ -28,4 +15,3 @@
     <button class="button" type="submit">Login</button>
   </div>
 </form>
-</main>

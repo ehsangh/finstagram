@@ -67,6 +67,41 @@ post '/signup' do
 end
 
 
+get '/finstagram_posts/new' do
+  #erb(:"finstagram_posts/new")
+  @finstagram_post = FinstagramPost.new
+  erb(:"finstagram_posts/new")
+end
+
+post '/finstagram_posts' do
+  photo_url = params[:photo_url]
+
+  # instantiate new FinstagramPost
+  @finstagram_post = FinstagramPost.new({ photo_url: photo_url, user_id: current_user.id })
+
+  # if @post validates, save
+  if @finstagram_post.save
+    redirect(to('/'))
+  else
+
+    # if it doesn't validate, print error messages
+    # @finstagram_post.errors.full_messages.inspect
+    erb(:"finstagram_posts/new")
+  end
+end
+
+get '/finstagram_posts/:id' do
+  #params[:id]
+  @finstagram_post = FinstagramPost.find(params[:id])   # find the finstagram post with the ID from the URL
+  #escape_html @finstagram_post.inspect        # print to the screen for now
+  erb(:"finstagram_posts/show")               # render app/views/finstagram_posts/show.erb
+end
+
+
+
+
+
+
 # def humanized_time_ago(time_ago_in_minutes)
 #   if time_ago_in_minutes >= 60
 #       "#{time_ago_in_minutes / 60} hours ago"
